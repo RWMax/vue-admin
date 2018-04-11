@@ -52,7 +52,7 @@
 				<router-view />
 			</el-main>
 			<el-footer>
-				<p class="global-footer-copyright">Copyright <i class="anticon ant-icon-copyright"></i>2018 途欢健康科技有限公司</p>
+				<p class="global-footer-copyright">Copyright <i class="anticon ant-icon-copyright"></i>2018</p>
 			</el-footer>
 		</el-container>
 	</el-container>
