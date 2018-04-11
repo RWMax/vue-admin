@@ -1,0 +1,12 @@
+$--prefixClass: 'thjk';
+$--white: #fff;
+// ICONFONT
+$iconfont-css-prefix    : 'ant-icon';
+$icon-url               : "https://at.alicdn.com/t/font_148784_imrz4lshfwimgqfr";
+/* 改变Menu*/
+$--menu-item-fill       : rgb(0, 21, 41);
+$--menu-item-color      : hsla(0,0%,100%,.65);
+$--menu-item-hover-color: $--white;
+/* SubMenu Icon Color*/
+$--el-menu-color        : $--menu-item-color;
+$--el-menu-hover-color  : $--white;
