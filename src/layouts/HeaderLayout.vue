@@ -11,11 +11,15 @@
     }" 
     @click.stop="changeCollapse"
     />
+    <el-breadcrumb class="breadcrumb" separator="/">
+			<el-breadcrumb-item v-for="item in currentPath" :to="{ path: item.path}" :key="item.path">{{item.title}}</el-breadcrumb-item>
+		</el-breadcrumb>
+
     <div class="right">
       <ul style="font-size: 0">
         <li class="message">
           <el-badge value="10" class="item">
-            <i class=" anticon ant-icon-bell"></i>
+            <i class="anticon ant-icon-bell"></i>
           </el-badge>
         </li>
         <li class="user">
@@ -57,7 +61,8 @@ export default {
 
   name: 'HeaderLayout',
   props: {
-    isCollapse: Boolean
+    isCollapse: Boolean,
+    currentPath: Array
   },
   methods: {
   	changeCollapse () {
@@ -81,6 +86,11 @@ export default {
       .menu-fold {
         padding: 0 12px;
       }
+    }
+
+    .breadcrumb {
+      line-height: 64px;
+      display: inline-block;
     }
 
     .menu-fold {

@@ -2,8 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import {router} from './router'
 import store from './store'
+import moment from "moment";
+import VueMomentJS from "vue-momentjs";
+Vue.use(VueMomentJS, moment);
 
 import './element-ui'
 
@@ -17,5 +20,8 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  mounted() {
+    this.$store.commit('updateMenulist');
+  },
 })

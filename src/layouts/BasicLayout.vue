@@ -11,48 +11,33 @@
 		>
 			<div class="logo" :class="{'collapse-sm':isCollapse}">
 				<a href="#/">
-					<img class="img" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg">
-					<h1>Element UI</h1>
+					<img class="img" src="../assets/logo.png">
+					<h1>Taroco UI</h1>
 				</a>
 			</div>
 			<el-aside>
-				<el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-				  <el-submenu index="1">
-				    <template slot="title">
-				      <i class="el-icon-location"></i>
-				      <span slot="title">dashboard</span>
-				    </template>
-				    <el-menu-item index="1-1">分析页</el-menu-item>
-    				<el-menu-item index="1-2">监控页</el-menu-item>
-    				<el-menu-item index="1-3">工作台</el-menu-item>
-				    <el-submenu index="1-4">
-				      <span slot="title">图标</span>
-				      <el-menu-item index="1-4-1">折线图</el-menu-item>
-				      <el-menu-item index="1-4-2">柱状图</el-menu-item>
-				    </el-submenu>
-				  </el-submenu>
-				  <el-menu-item index="2">
-				    <i class="el-icon-menu"></i>
-				    <span slot="title">表单页</span>
-				  </el-menu-item>
-				  <el-menu-item index="3">
-				    <i class="el-icon-document"></i>
-				    <span slot="title">列表页</span>
-				  </el-menu-item>
-				  <el-menu-item index="4">
-				    <i class="el-icon-setting"></i>
-				    <span slot="title">详情页</span>
-				  </el-menu-item>
+				<el-menu default-active="/dashboard" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+					<el-menu-item index="/dashboard">
+						<i class="anticon ant-icon-home"></i>
+						<span slot="title">首页</span>
+					</el-menu-item>
+					<el-submenu v-for="(item, index) in menuList" :key="item.path" :index="item.path">
+						<template slot="title">
+							<i class="anticon" :class="item.icon"></i>
+							<span slot="title">服务治理</span>
+						</template>
+						<el-menu-item v-for="ch in item.children" :key="ch.path" :index="item.path + '/' + ch.path">{{ch.title}}</el-menu-item>
+					</el-submenu>
 				</el-menu>
 			</el-aside>
 		</el-row>
 		<el-container>
-			<header-layout :isCollapse="isCollapse"></header-layout>
+			<header-layout :isCollapse="isCollapse" :currentPath="currentPath"></header-layout>
 			<el-main>
 				<router-view />
 			</el-main>
 			<el-footer>
-				<p class="global-footer-copyright">Copyright <i class="anticon ant-icon-copyright"></i>2018</p>
+				<p class="global-footer-copyright">Copyright <i class="anticon ant-icon-copyright"></i>2018 Taroco</p>
 			</el-footer>
 		</el-container>
 	</el-container>
@@ -62,24 +47,28 @@
 import HeaderLayout from './HeaderLayout'
 import { mapState } from 'vuex'
 export default {
-
-  name: 'BasicLayout',
-  computed: {
-  	...mapState({
-  		isCollapse: state => state.global.isCollapse
-  	})
-  },
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath)
-    }
-  },
-  components: {
-  	HeaderLayout
-  }
+	name: 'BasicLayout',
+	// 计算属性
+  	computed: {
+  		...mapState({
+			isCollapse: state => state.global.isCollapse,
+			currentPath: state => state.global.currentPath
+		}),
+		menuList () {
+			return this.$store.state.global.menuList;
+		},
+  	},
+  	methods: {
+		handleOpen(key, keyPath) {
+			
+		},
+		handleClose(key, keyPath) {
+			
+		}
+	},
+	components: {
+		HeaderLayout
+	}
 }
 </script>
 

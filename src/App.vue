@@ -5,8 +5,14 @@
 </template>
 
 <script>
+import util from '@/util/util.js';
 export default {
-  name: 'App'
+  name: 'App',
+  watch: {
+      '$route' (to) {
+          let pathArr = util.setCurrentPath(this, to.name);
+      }
+  },
 }
 </script>
 
