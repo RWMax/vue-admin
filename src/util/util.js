@@ -8,6 +8,7 @@ import qs from 'querystring';
 import {config} from './config';
 import {Loading, Message} from 'element-ui';
 
+let cancel ,promiseArr = {}
 //请求拦截器
 axios.interceptors.request.use(config => {
     //发起请求时，取消掉当前正在进行的相同请求
@@ -70,8 +71,7 @@ axios.interceptors.response.use(response => {
     } else {
       err.message = "连接到服务器失败"
     }
-    message.error(err.message)
-    return Promise.resolve(err.response)
+    return Promise.resolve(err.response);
 })
 // 设置默认
 axios.defaults.timeout = 30000;
@@ -163,9 +163,9 @@ util.hideLoading = (instance) => {
  * @param data 异步返回数据
  */
 function checkResponse (data) {
-    if (data.meta.code === 0) {
+    if (data.status !== 'SUCCEED') {
         Message({
-            message: data.meta.message ?  data.meta.message : "请求出错, 请稍候重试...",
+            message: data.errorMessage ?  data.errorMessage : "请求出错, 请稍候重试...",
             type: 'error',
             duration: 3000,
             showClose: true
@@ -179,10 +179,10 @@ function checkResponse (data) {
  * @param {*请求异常} e
  */
 function handleError (e) {
-    if (e.response.data.meta.message) {
+    if (e.response.data.errorMessage) {
         // 请求已发出，但服务器响应的状态码不在 2xx 范围内
         Message({
-            message: e.response.data.meta.message,
+            message: e.response.data.errorMessage,
             type: 'error',
             duration: 3000,
             showClose: true
